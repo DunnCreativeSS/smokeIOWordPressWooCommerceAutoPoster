@@ -23,7 +23,7 @@ var productPage = 1;
 function getMoreWooProducts() {
     WooCommerce.get('products?page=' + productPage, function(err, data, res) {
         if (res.length <= 300) {
-            doPostWootoSmoke();
+            doPostWootoSmoke(0);
         } else {
             for (var index1 in JSON.parse(res)) {
                 productList.push(JSON.parse(res)[index1])
@@ -36,11 +36,12 @@ function getMoreWooProducts() {
 }
 var productList = [];
 
-//function to post items from productList that don't exist on Smoke to Smoke
+//function to post items from productList that don't exist on Smoke to Smoke, takes index of productlist
 
-function doPostWootoSmoke() {
-    console.log(productList.length);
-    for (var index1 in productList) {
+function doPostWootoSmoke(index1) {
+    firstgo = true;
+    if (index1 < productList.length){
+    //console.log(productList.length);
         //console.log(productList[index1])
         var toPost = "";
         var title = (productList[index1].name);
@@ -61,11 +62,11 @@ function doPostWootoSmoke() {
         setTimeout(function() {
 
             asyncGetSmokePosts(perm, title, toPost, index1);
-
-        }, 5 * 1000 * 61 * (index1+1));
+            index1++
+            doPostWootoSmoke(index1)
+        }, 5 * 1050 * 60 * (index1));
     }
 }
-
 //Helper function returns true if str is in strArray's members, false if not
 
 function searchStringInArray(str, strArray) {
@@ -79,35 +80,54 @@ function searchStringInArray(str, strArray) {
 
 function asyncGetSmokePosts(perm, title, toPost, index1) {
 
-    steem.api.getBlogEntries(process.env.author, 9999, 1, function(err, data) {
+        var query = {
+    tag: 'marketplace',
+  limit: 100
+};
 
+steem.api.getDiscussionsByCreated(query, function (err, data) {
         for (var index4 in data) {
             posts.push(data[index4])
 
         }
         for (var index2 in posts) {
-            asyncPostProductsToSmoke(posts, index2, perm, title, toPost, index1);
+            asyncCheckPostsPerms(index2, posts, perm, title, toPost, index1);
         }
     });
 }
 
-//Async function to post Products to Smoke.io, takes a list of posts, two indexes for two lists, permlink, title and toPost body to post
+// Async function that builds our TakenPerms list
 
-function asyncPostProductsToSmoke(posts, index2, perm, title, toPost, index1) {
-    if (!indexes.includes(index1)) {
-        indexes.push(index1);
-        const now = new Date().toISOString().split('.')[0];
-        steem.api.getDiscussionsByAuthorBeforeDate(process.env.author, posts[index2].permlink, now, 1, function(err, result) {
+function asyncCheckPostsPerms(index2, posts, perm, title, toPost, index1){
+    const now = new Date().toISOString().split('.')[0];
+
+steem.api.getDiscussionsByAuthorBeforeDate(process.env.author, posts[index2].permlink, now, 1, function(err, result) {
             for (var index3 in result) {
                 if (!takenPerms.includes(result[index3].permlink)) {
                     takenPerms.push(result[index3].permlink);
                 }
 
-            }
-            //console.log(takenPerms);
-            if (!searchStringInArray(perm.substr(0, perm.length - 12), takenPerms)) {
+            }if (!searchStringInArray(perm.substr(0, perm.length - 12), takenPerms)) {
+            asyncPostProductsToSmoke(posts, index2, perm, title, toPost, index1);
+        }else{
+            doPostWootoSmoke(index1+1)
+        }
+        })
+}
+//Async function to post Products to Smoke.io, takes a list of posts, two indexes for two lists, permlink, title and toPost body to post
+//variable firstgo
+var firstgo = true;
+function asyncPostProductsToSmoke(posts, index2, perm, title, toPost, index1) {
+    //console.log(index2);
+        //indexes.push(index1);
+        //console.log(posts.length)
+    if (firstgo) {
+        firstgo = false;
+            takenPerms.push(perm)
+            
                 //console.log(index1);
                 //console.log(perm);
+               
                 steem.broadcast.comment(
                     process.env.steemPostPw,
                     '', // Leave parent author empty
@@ -125,9 +145,6 @@ function asyncPostProductsToSmoke(posts, index2, perm, title, toPost, index1) {
                     }
                 );
 
-
-            }
-        });
     }
 }
 
