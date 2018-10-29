@@ -31,12 +31,13 @@ https://smoke.io
 8. Posts on Smoke.io have an application metadata
 
 - How did you implement it/them?
-1. 2. 3. ![newPost.png](https://ipfs.busy.org/ipfs/QmeYJwoDWfyyjt1nKXjxTbqPSQdQKevsXMtRKN4HDBi5NM)
-4. ![smokePOst.png](https://ipfs.busy.org/ipfs/QmQTFtK2S9o4etz8KiMVCnQdHm6XqMp5tgKTJyCEqMtErM)
-5. ![perm.png](https://ipfs.busy.org/ipfs/QmZFsDuE23Vn9ozZL9PptfjZsmtPz71KFGvxstFv6erVQT)
-6. ![images.png](https://ipfs.busy.org/ipfs/QmVPUg7Fhn382wA1aDgeT3m1yBpb2SwzuxpFPvYrt3GNXu)
-7. ![link.png](https://ipfs.busy.org/ipfs/QmRFisfF9ZqXDuTZGJ368sKxKGeE3RDRnP4XZ3JaNA5Hfe)
-8. ![app.png](https://ipfs.busy.org/ipfs/QmcfKm1C2xMRZcrtp9fnxZKL3z4WcFXEg5WxsE8224FLdH)
+1, 2 and 3 ![newPost.png](https://ipfs.busy.org/ipfs/QmeYJwoDWfyyjt1nKXjxTbqPSQdQKevsXMtRKN4HDBi5NM)
+
+4: ![smokePOst.png](https://ipfs.busy.org/ipfs/QmQTFtK2S9o4etz8KiMVCnQdHm6XqMp5tgKTJyCEqMtErM)
+5: ![perm.png](https://ipfs.busy.org/ipfs/QmZFsDuE23Vn9ozZL9PptfjZsmtPz71KFGvxstFv6erVQT)
+6: ![images.png](https://ipfs.busy.org/ipfs/QmVPUg7Fhn382wA1aDgeT3m1yBpb2SwzuxpFPvYrt3GNXu)
+7: ![link.png](https://ipfs.busy.org/ipfs/QmRFisfF9ZqXDuTZGJ368sKxKGeE3RDRnP4XZ3JaNA5Hfe)
+8: ![app.png](https://ipfs.busy.org/ipfs/QmcfKm1C2xMRZcrtp9fnxZKL3z4WcFXEg5WxsE8224FLdH)
 
 
 ### New Projects
